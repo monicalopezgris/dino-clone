@@ -71,10 +71,10 @@ The map is not a line, there are hills and falls to the emptiness.
 
     class ground(){
     	this.src
-	this.posY
-	this.posX
-	this.moveY
-	this.moveX
+		this.posY
+		this.posX
+		this.moveY
+		this.moveX
 
     	createGround()
     	paintGround()
@@ -82,10 +82,10 @@ The map is not a line, there are hills and falls to the emptiness.
     
     class dino(){
     	this.src
-	this.posY
-	this.posX
-	this.moveY
-	this.moveX
+		this.posY
+		this.posX
+		this.moveY
+		this.moveX
     	this.lifes:[]
     	updare()
     }
@@ -93,9 +93,9 @@ The map is not a line, there are hills and falls to the emptiness.
     class obstacle (){
     	this.obstacles
     	this.src
-	this.posy
-	this.posx
-	createObstacle()
+		this.posy
+		this.posx
+		createObstacle()
     	mapObstacle()
     	update()
     }
@@ -117,6 +117,9 @@ Definition of the different states and their transition (transition functions)
 ## Task
 Task definition in order of priority
 
+- Create start state
+- Create game state
+- Create Game over state
 - Create the file structure
 - Create the constructors of the Classes
 - Create a square
@@ -133,8 +136,7 @@ Task definition in order of priority
 - Restart the map if there is a collision
 - Kill DINO if it has 0 lifes left 
 - Make a life counter
-- Create start page
-- Create Game ver page
+
 
 
 
