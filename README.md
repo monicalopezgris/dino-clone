@@ -6,7 +6,7 @@
 
 This game is about a DINO that has to avoid obtacles.
 
-If DINO touches an obstacle it looses a life, the purpouse is to keep DINO alive.
+If DINO touches an obstacle it loses a life, the purpouse is to keep DINO alive.
 
 
 ## MVP (DOM - CANVAS)
@@ -54,48 +54,51 @@ The map is not a line, there are hills and falls to the emptiness.
 
 ### Classes and methods
 
-class game(){
-    this.dino
-    this.ground
-    this.obstacles
-    this.lifes
-    this.ctx:
+    class game(){
+    	this.dino
+    	this.ground
+    	this.obstacles
+    	this.lifes
+    	this.context
+	
+    	start()
+    	pause()
+    	end()
+    	update(){}
+    	colisionDino()
+    	mapMovement()
+    } 
 
-    start()
-    pause()
-    end()
+    class ground(){
+    	this.src
+	this.posY
+	this.posX
+	this.moveY
+	this.moveX
 
-    update(){}
-    colisionDino()
-    mapMovement(){} 
-}
+    	createGround()
+    	paintGround()
+    }
+    
+    class dino(){
+    	this.src
+	this.posY
+	this.posX
+	this.moveY
+	this.moveX
+    	this.lifes:[]
+    	updare()
+    }
 
-class ground(){
-    this.src
+    class obstacle (){
+    	this.obstacles
+    	this.src
 	this.posy
 	this.posx
-    this.velocity
-
-    createGround()
-    paintGround()
-}
-
-class dino(){
-    this.body
-    this.lifes:[]
-}
-
-class obstacle (){
-    this.obstacles
-    this.src
-	this.posy
-	this.posx
-
-    createObstacle()
-    mapObstacle()
-    paintObstacle()
-}
-
+	createObstacle()
+    	mapObstacle()
+    	update()
+    }
 
 
 ## States y States Transitions
