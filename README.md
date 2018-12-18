@@ -1,5 +1,5 @@
 
-# Project's name
+# Dino Clone
 
 ## Description 
 
@@ -54,7 +54,7 @@ The map is not a line, there are hills and falls to the emptiness.
 
 ### Classes and methods
 
--class game(){
+class game(){
     this.dino
     this.ground
     this.obstacles
@@ -70,7 +70,7 @@ The map is not a line, there are hills and falls to the emptiness.
     mapMovement(){} 
 }
 
--class ground(){
+class ground(){
     this.src
 	this.posy
 	this.posx
@@ -80,12 +80,12 @@ The map is not a line, there are hills and falls to the emptiness.
     paintGround()
 }
 
--class dino(){
+class dino(){
     this.body
     this.lifes:[]
 }
 
--class obstacle (){
+class obstacle (){
     this.obstacles
     this.src
 	this.posy
