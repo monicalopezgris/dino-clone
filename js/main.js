@@ -21,9 +21,8 @@ gameOver.onclick = function() {
 
 
 // GAME
-
+const game = new Game();
 function startGame() {
-  let game = new Game();
   game.start();
 }
 
