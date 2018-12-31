@@ -8,7 +8,7 @@ function setStage(show, hidde, isStart) {
     }
     document.getElementById(hidde).classList.add("hidden");
   }
-
+  
 start.onclick = function() {
   setStage("game-over", "start", true);
   startGame()
@@ -25,6 +25,8 @@ const game = new Game();
 function startGame() {
   game.start();
 }
+
+
 
 
 
