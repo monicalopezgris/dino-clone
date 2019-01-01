@@ -17,8 +17,12 @@ class Dino {
   }
 
   jump() {
-    this.posY = this.dino.jumpHeight;
-    console.log(this.dino.posY)
+    this.posY = this.jumpHeight;
+    console.log(this.posY)
   };
+
+  land(){
+    setTimeout(function(){ this.posY = 420;}.bind(this), 1000)
+  }
 
 }

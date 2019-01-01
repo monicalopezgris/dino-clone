@@ -29,17 +29,10 @@ class Game {
   dinoJump(){
     document.onkeydown = (e) => {
       if (e.keyCode ===38) {
-        this.dino.posY = this.dino.jumpHeight;
-        console.log(this.dino.posY)
-        setTimeout(function(){ this.dino.posY = 420;}.bind(this), 1000)
+        this.dino.jump();
+        this.dino.land();
       }
     };
-  }
-
-  
-
-  dinoFall(){
-    this.dino.jump = false;
   }
   
   update(){
