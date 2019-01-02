@@ -8,11 +8,11 @@ class Game {
     this.ground = new Ground(20, 500, "black", 0, 480, this.context);
     this.obstacles = [];
     this.intervalObstacles = undefined;
-    this.obstaclesMoving=false 
+    this.obstaclesMoving = false;
     this.interval = undefined;
-    this.keydown=false;
+    this.keydown = false;
   }
-  
+
   start() {
     let gameOver = document.getElementById("game-over");
     document.body.insertBefore(this.canvas, gameOver);
@@ -26,42 +26,43 @@ class Game {
   createObstacle() {
     let obstacle = new Obstacle(20, 20, "grey", 300, 460, this.context);
     this.obstacles.push(obstacle);
-    this.obstaclesMoving=true
+    this.obstaclesMoving = true;
   }
 
-  moveObstacles(){
+  moveObstacles() {
     this.obstacles.forEach(obstacle => {
-      obstacle.posX -=10;
-      console.log(obstacle.posX)
+      obstacle.posX -= 10;
+      console.log(obstacle.posX);
     });
   }
 
-  dinoJump(){
-    document.onkeydown = (e) => {
-      if (e.keyCode ===38) {
+  dinoJump() {
+    document.onkeydown = e => {
+      if (e.keyCode === 38) {
         this.dino.jump();
         this.dino.land();
       }
     };
   }
-  
-  update(){
-    this.interval = window.requestAnimationFrame(this.update.bind(this))
+
+  update() {
+    this.interval = window.requestAnimationFrame(this.update.bind(this));
     this.clear();
     this.dinoJump();
     this.ground.update();
-    if (this.obstaclesMoving===true ) {
+    if (this.obstaclesMoving === true) {
       setInterval(this.moveObstacles.bind(this), 100);
-      this.obstaclesMoving=false
+      this.obstaclesMoving = false;
     }
 
-    if (this.obstacles.length>0) {
-      this.obstacles[0].update();
+    if (this.obstacles.length > 0) {
+      this.obstacles.forEach(obstacle => {
+        obstacle.update();
+      });
     }
-    
+
     this.dino.update();
-    
   }
 }
 
-window.addEventListener('keydown',this.keydown)
+window.addEventListener("keydown", this.keydown);
