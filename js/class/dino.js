@@ -22,7 +22,7 @@ class Dino {
   };
 
   land(){
-    setTimeout(function(){ this.posY = 420;}.bind(this), 1000)
+    setTimeout(function(){ this.posY = 430;}.bind(this), 1000)
   }
 
 }

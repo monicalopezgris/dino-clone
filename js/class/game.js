@@ -29,6 +29,15 @@ class Game {
     this.obstaclesMoving = true;
   }
 
+  deleteObstacle() {
+    this.obstacles.forEach(obstacle => {
+      if (obstacle.posX < -20) {
+        this.obstacles = this.obstacles.shift();
+        console.log("eliminado");
+      }
+    });
+  }
+
   moveObstacles() {
     this.obstacles.forEach(obstacle => {
       obstacle.posX -= 10;
@@ -45,11 +54,37 @@ class Game {
     };
   }
 
+  collision() {
+    for (let i = 0; i < this.obstacles.length; i++) {
+      let obstacle = this.obstacles[i];
+      let dino = this.dino;
+      /*
+      let myleft = dino.posX;
+      let myright = dino.posX + dino.width;
+      let mytop = this.y;
+      let mybottom = this.y + this.height;
+      let otherleft = otherobj.x;
+      let otherright = otherobj.x + otherobj.width;
+      let othertop = otherobj.y;
+      let otherbottom = otherobj.y + otherobj.height;*/
+
+      /*if (
+        (dino.posX + dino.width) >= obstacle.posX && dino.posY <= (obstacle.posY + obstacle.height) &&
+        obstacle.posY<= (dino.posY + dino.height)&&
+        (obstacle.posX + obstacle.width) >= dino.posX
+
+      ) {
+        alert("colision");
+      }*/
+    }
+  }
+
   update() {
     this.interval = window.requestAnimationFrame(this.update.bind(this));
     this.clear();
     this.dinoJump();
     this.ground.update();
+
     if (this.obstaclesMoving === true) {
       setInterval(this.moveObstacles.bind(this), 100);
       this.obstaclesMoving = false;
@@ -60,8 +95,9 @@ class Game {
         obstacle.update();
       });
     }
-
+    this.deleteObstacle();
     this.dino.update();
+    this.collision();
   }
 }
 
