@@ -25,4 +25,16 @@ class Dino {
     setTimeout(function(){ this.posY = 430;}.bind(this), 1000)
   }
 
+  directLand(){
+    this.posY = 430
+  }
+
+  moveRight() {
+    this.posX +=5;
+  };
+
+  moveLeft() {
+    this.posX -= 5;
+  };
+
 }

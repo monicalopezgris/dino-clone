@@ -25,6 +25,8 @@ const game = new Game();
 function startGame() {
   game.start();
   game.randomPaintObstacle();
+  
+  
 }
 
 

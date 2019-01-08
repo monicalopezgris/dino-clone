@@ -8,14 +8,21 @@ class Game {
     this.ground = new Ground(20, 500, "black", 0, 480, this.context);
     this.obstacles = [];
     this.obstaclesMoving = false;
-    this.interval = undefined;
+    this.obstaclesExist = false;
     this.keydown = false;
   }
 
   start() {
+
     let gameOver = document.getElementById("game-over");
+    this.canvas.setAttribute('id', 'canvas');
     document.body.insertBefore(this.canvas, gameOver);
     this.update();
+  }
+
+  stop(){
+    let element = document.getElementById('canvas');
+    element.parentNode.removeChild(element);
   }
 
   clear() {
@@ -24,7 +31,7 @@ class Game {
 
   createObstacle() {
     console.log('creteObstacle')
-    let obstacle = new Obstacle(20, 20, "grey", 300, 460, this.context);
+    let obstacle = new Obstacle(20, 20, "grey", 500, 460, this.context);
     this.obstacles.push(obstacle);
     this.obstaclesMoving = true;
     
@@ -54,36 +61,29 @@ class Game {
       if (e.keyCode === 38) {
         this.dino.jump();
         this.dino.land();
+      }else if(e.keyCode === 40){
+        this.dino.directLand();
+      }else if(e.keyCode === 39){
+        this.dino.moveRight();
+      }else if(e.keyCode === 37){
+        this.dino.moveLeft();
       }
     };
   }
 
   collision() {
-    for (let i = 0; i < this.obstacles.length; i++) {
-      let obstacle = this.obstacles[i];
-      let dino = this.dino;
+    let dino = this.dino;
+    let object = this.obstacles[0];
+    let colision = false;
+    if (dino.posX+dino.width > object.posX){
+      colision = true;
+    }
 
-      let myleft = dino.posX;
-      let myright = dino.posX + dino.width;
-      let mytop = dino.posY;
-      let mybottom = dino.posY + dino.height;
-      let otherleft = obstacle.posX;
-      let otherright = obstacle.posX + obstacle.width;
-      let othertop = obstacle.posY;
-      let otherbottom = obstacle.posY + obstacle.height;
+    if (colision===true){
+      console.log('gameover')
+      setStage("game-over", "start");
+      this.stop();
 
-      if (
-        function(){
-          return !(
-            myright < otherleft ||
-            myleft > otherright ||
-            mybottom < othertop ||
-            mytop > otherbottom
-          );
-        }
-      ) {
-        alert("colision");
-      }
     }
   }
 
@@ -92,23 +92,27 @@ class Game {
     this.clear();
     this.dinoJump();
     this.ground.update();
-
-    if (this.obstaclesMoving === true) {
-      setInterval(this.moveObstacles.bind(this), 100);
-      this.obstaclesMoving = false;
-    }
-
-    if (this.obstacles.length > 0) {
+    
+    if (this.obstacles.length > 0) {  //Si hay obstaculos
       this.obstacles.forEach(obstacle => {
         obstacle.update();
       });
+
+      if (!this.obstaclesExist) {
+        setInterval(this.moveObstacles.bind(this), 100);
+        this.obstaclesExist=true;
+      }
+
+      this.collision();
+
     }else{
       console.log('no obstacle')
     }
     //this.deleteObstacle();
     this.dino.update();
-    //this.collision();
+    
   }
 }
 
 window.addEventListener("keydown", this.keydown);
+
