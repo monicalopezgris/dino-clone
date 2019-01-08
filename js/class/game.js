@@ -58,24 +58,28 @@ class Game {
     for (let i = 0; i < this.obstacles.length; i++) {
       let obstacle = this.obstacles[i];
       let dino = this.dino;
-      /*
+
       let myleft = dino.posX;
       let myright = dino.posX + dino.width;
-      let mytop = this.y;
-      let mybottom = this.y + this.height;
-      let otherleft = otherobj.x;
-      let otherright = otherobj.x + otherobj.width;
-      let othertop = otherobj.y;
-      let otherbottom = otherobj.y + otherobj.height;*/
+      let mytop = dino.posY;
+      let mybottom = dino.posY + dino.height;
+      let otherleft = obstacle.posX;
+      let otherright = obstacle.posX + obstacle.width;
+      let othertop = obstacle.posY;
+      let otherbottom = obstacle.posY + obstacle.height;
 
-      /*if (
-        (dino.posX + dino.width) >= obstacle.posX && dino.posY <= (obstacle.posY + obstacle.height) &&
-        obstacle.posY<= (dino.posY + dino.height)&&
-        (obstacle.posX + obstacle.width) >= dino.posX
-
+      if (
+        function(){
+          return !(
+            myright < otherleft ||
+            myleft > otherright ||
+            mybottom < othertop ||
+            mytop > otherbottom
+          );
+        }
       ) {
         alert("colision");
-      }*/
+      }
     }
   }
 
