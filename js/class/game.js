@@ -7,7 +7,6 @@ class Game {
     this.dino = new Dino(50, 20, "red", 50, 430, this.context); //width, height, color, x, y, ctx
     this.ground = new Ground(20, 500, "black", 0, 480, this.context);
     this.obstacles = [];
-    this.intervalObstacles = undefined;
     this.obstaclesMoving = false;
     this.interval = undefined;
     this.keydown = false;
@@ -24,24 +23,29 @@ class Game {
   }
 
   createObstacle() {
+    console.log('creteObstacle')
     let obstacle = new Obstacle(20, 20, "grey", 300, 460, this.context);
     this.obstacles.push(obstacle);
     this.obstaclesMoving = true;
+    
   }
 
   deleteObstacle() {
     this.obstacles.forEach(obstacle => {
       if (obstacle.posX < -20) {
         this.obstacles = this.obstacles.shift();
-        console.log("eliminado");
       }
     });
+  }
+
+  randomPaintObstacle(){
+    this.createObstacle();
+    setTimeout(this.randomPaintObstacle.bind(this), Math.random() * 7000);
   }
 
   moveObstacles() {
     this.obstacles.forEach(obstacle => {
       obstacle.posX -= 10;
-      console.log(obstacle.posX);
     });
   }
 
@@ -98,10 +102,12 @@ class Game {
       this.obstacles.forEach(obstacle => {
         obstacle.update();
       });
+    }else{
+      console.log('no obstacle')
     }
-    this.deleteObstacle();
+    //this.deleteObstacle();
     this.dino.update();
-    this.collision();
+    //this.collision();
   }
 }
 
