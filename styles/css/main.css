@@ -2,48 +2,136 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline; }
+  vertical-align: baseline;
+}
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block; }
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
 
 body {
-  line-height: 1; }
+  line-height: 1;
+}
 
-ol, ul {
-  list-style: none; }
+ol,
+ul {
+  list-style: none;
+}
 
-blockquote, q {
-  quotes: none; }
+blockquote,
+q {
+  quotes: none;
+}
 
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none; }
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
 
 table {
   border-collapse: collapse;
-  border-spacing: 0; }
+  border-spacing: 0;
+}
 
 /* 
 * VARIABLES
@@ -51,26 +139,87 @@ table {
 /* 
 * BASE
 **************************************************/
+h1,
+h2,
+p {
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+}
+
 /* 
 * STAGES
 ***************************************************/
 .stage {
   width: 100%;
-  float: left; }
+  float: left;
+}
 
 .hidden {
-  display: none; }
+  display: none;
+}
 
 /*
 * STAGE START
 ***************************************************/
 #start {
-  background-color: red; }
+  background-color: rgb(145, 255, 0);
+  height: 100vh;
+  width: 100vw;
+  padding-top: 100px;
+}
+
+#start > p {
+  margin-bottom: 50px;
+}
+#start > div {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+#dino {
+  background-color: brown;
+  width: 20px;
+  height: 40px;
+  margin-right: 35px;
+}
+
+#rock {
+  background-color: grey;
+  width: 20px;
+  height: 20px;
+}
+
+#ground {
+  height: 30px;
+  width: 400px;
+  background-color: darkgreen;
+}
+
+button {
+  margin-top: 50px;
+  background-color: white;
+  border: 2px solid darkgreen;
+  border-radius: 70%;
+  padding: 15px;
+}
+button:hover {
+  background-color: lightgray;
+}
 
 /*
 * STAGE GAME-OVER
 ***************************************************/
 #game-over {
-  background-color: blue; }
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
 
-/*# sourceMappingURL=main.css.map */
