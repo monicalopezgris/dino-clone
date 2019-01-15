@@ -1,13 +1,15 @@
 class Game {
   constructor() {
     this.canvas = document.createElement("canvas");
-    this.canvas.width = 500;
-    this.canvas.height = 500;
+    this.windowWidth = window.innerWidth;
+    this.windowHeight = window.innerHeight;
+    this.canvas.width = this.windowWidth;
+    this.canvas.height = this.windowHeight;
     this.context = this.canvas.getContext("2d");
     this.context.fillStyle = "blue";
     this.context.fillRect(this.posX, this.posY, this.height, this.width);
     this.dino = new Dino(20, 50, "img/dino.png", 50, 440, this.context); //width, height, color, x, y, ctx
-    this.ground = new Ground(20, 500, "green", 0, 480, this.context);
+    this.ground = new Ground(20, this.windowWidth, "green", 0, 480, this.context);
     this.obstacle = new Obstacle(20, 20, "grey", 500, 460, this.context); //width, height, color, x, y, ctx
     this.obstacles = [];
     this.keys = [];
@@ -30,7 +32,7 @@ class Game {
   // ------------------------OBSTACLES--------------------------------
   createObstacle() {
     this.obstacles.push(new Obstacle(20, 20, "grey", 500, 460, this.context));
-    console.log(this.obstacles)
+    console.log(this.obstacles);
     this.generatingObstacle = false;
   }
 
@@ -87,8 +89,9 @@ class Game {
     if (this.keys[38]) {
       if (this.dino.jumping === false) {
         this.dino.jump();
+        this.dino.autoLand();
+      } else {
       }
-      this.dino.autoLand();
     }
 
     if (this.keys[40]) {
@@ -123,11 +126,9 @@ class Game {
       this.ground.paint();
       this.dino.paint();
 
-      
       if (this.generatingObstacle === false) {
         this.randomCreateObstacle();
       }
-      
 
       if (this.obstacles.length > 0) {
         //If there are obstacles
