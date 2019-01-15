@@ -8,9 +8,9 @@ class Game {
     this.context = this.canvas.getContext("2d");
     this.context.fillStyle = "blue";
     this.context.fillRect(this.posX, this.posY, this.height, this.width);
-    this.dino = new Dino(20, 50, "img/dino.png", 50, 440, this.context); //width, height, color, x, y, ctx
-    this.ground = new Ground(20, this.windowWidth, "green", 0, 480, this.context);
-    this.obstacle = new Obstacle(20, 20, "grey", 500, 460, this.context); //width, height, color, x, y, ctx
+    this.ground = new Ground(40, this.windowWidth, "green", 0, this.windowHeight-40, this.context);
+    this.dino = new Dino(20, 50, "img/dino.png", 50, this.windowHeight - this.ground.width - 50, this.context); //width, height, color, x, y, ctx
+    this.obstacle = new Obstacle(20, 20, "grey", this.windowWidth - 20, this.windowHeight - this.ground.width, this.context); //width, height, color, x, y, ctx
     this.obstacles = [];
     this.keys = [];
     this.generatingObstacle = false;
@@ -31,7 +31,7 @@ class Game {
 
   // ------------------------OBSTACLES--------------------------------
   createObstacle() {
-    this.obstacles.push(new Obstacle(20, 20, "grey", 500, 460, this.context));
+    this.obstacles.push(new Obstacle(20, 20, "grey", this.windowWidth - 20, this.windowHeight - this.ground.width -20, this.context));
     console.log(this.obstacles);
     this.generatingObstacle = false;
   }
@@ -122,14 +122,14 @@ class Game {
   update() {
     if (!this.gameOver) {
       this.clear();
-      this.dinoMove();
       this.ground.paint();
+      this.dinoMove();
       this.dino.paint();
-
+      
       if (this.generatingObstacle === false) {
         this.randomCreateObstacle();
       }
-
+      
       if (this.obstacles.length > 0) {
         //If there are obstacles
         this.moveElements(this.obstacles);
@@ -137,7 +137,7 @@ class Game {
         this.collisionControl();
         this.deleteObstacle();
       }
-
+      
       if (this.interval !== undefined) {
         this.interval = window.requestAnimationFrame(this.update.bind(this));
       }
