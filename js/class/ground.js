@@ -9,7 +9,7 @@ class Ground{
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.posX, this.posY, this.height, this.width);
     }    
-    update() {
+    paint() {
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.posX, this.posY, this.height, this.width);
       }

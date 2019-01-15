@@ -11,11 +11,11 @@ class Dino {
     //this.ctx.fillRect(this.posX, this.posY, this.height, this.width);
     this.jumping=false;
     this.jumpTop = 370;
-    this.velocity = 5;
+    this.velocity = 1;
     
   }
 
-  update() {
+  paint() {
     this.ctx.drawImage(this.image, 
       this.posX, 
       this.posY,

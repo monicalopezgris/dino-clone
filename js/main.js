@@ -23,8 +23,6 @@ gameOver.onclick = function() {
 const game = new Game();
 function startGame() {
   game.start();
-  game.randomCreateObstacle();
-  
   
 }
 

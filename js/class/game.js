@@ -53,7 +53,7 @@ class Game {
     });
   }
 
-  updateEachElement(element) {
+  paintEachElement(element) {
     element.forEach(obstacle => {
       obstacle.paint();
     });
@@ -105,7 +105,6 @@ class Game {
   collisionControl() {
     this.obstacles.forEach(obstacle => {
       if (
-        //this.coll1(obstacle) && this.coll2(obstacle)
         this.dino.posY + this.dino.height >= obstacle.posY &&
         this.dino.posX + this.dino.width > obstacle.posX &&
         this.dino.posX <= obstacle.posX + obstacle.height
@@ -121,8 +120,8 @@ class Game {
     if (!this.gameOver) {
       this.clear();
       this.dinoMove();
-      this.ground.update();
-      this.dino.update();
+      this.ground.paint();
+      this.dino.paint();
 
       
       if (this.generatingObstacle === false) {
@@ -133,9 +132,9 @@ class Game {
       if (this.obstacles.length > 0) {
         //If there are obstacles
         this.moveElements(this.obstacles);
-        this.updateEachElement(this.obstacles);
+        this.paintEachElement(this.obstacles);
         this.collisionControl();
-        //this.deleteObstacle();
+        this.deleteObstacle();
       }
 
       if (this.interval !== undefined) {
