@@ -150,7 +150,7 @@ Task definition in order of priority
 ### Git
 URls for the project repo and deploy
 [Link Repo](https://github.com/monicalopezgris/dino-clone)
-<!---[Link Deploy](http://github.com)--->
+[Link Deploy]( https://monicalopezgris.github.io/dino-clone/)
 
 
 ### Slides
