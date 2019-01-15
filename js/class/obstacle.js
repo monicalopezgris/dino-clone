@@ -6,14 +6,19 @@ class Obstacle {
     this.posY = y;
     this.ctx = ctx;
     this.color= color;
-    this.velocity = 10;
+    this.velocity = 1;
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(this.posX, this.posY, this.height, this.width);
   }
 
-  update() {
+  paint() {
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(this.posX, this.posY, this.height, this.width);
+    console.log('updating')
+  }
+
+  move(){
+    this.posX -= this.velocity;
   }
 
 }

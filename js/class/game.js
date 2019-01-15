@@ -11,18 +11,16 @@ class Game {
     this.obstacle = new Obstacle(20, 20, "grey", 500, 460, this.context); //width, height, color, x, y, ctx
     this.obstacles = [];
     this.keys = [];
-    this.obstaclesMoving = false;
-    this.obstaclesIntervalExists = false;
+    this.generatingObstacle = false;
     this.gameOver = false;
-    this.interval = false;
   }
 
   start() {
     let gameOver = document.getElementById("game-over");
     this.canvas.setAttribute("id", "canvas");
     document.body.insertBefore(this.canvas, gameOver);
+    this.interval = window.requestAnimationFrame(this.update.bind(this));
     this.update();
-    
   }
 
   clear() {
@@ -31,8 +29,14 @@ class Game {
 
   // ------------------------OBSTACLES--------------------------------
   createObstacle() {
-    this.obstacles.push(this.obstacle);
-    this.obstaclesMoving = true;
+    this.obstacles.push(new Obstacle(20, 20, "grey", 500, 460, this.context));
+    console.log(this.obstacles)
+    this.generatingObstacle = false;
+  }
+
+  randomCreateObstacle() {
+    this.generatingObstacle = true;
+    setTimeout(this.createObstacle.bind(this), Math.random() * 5000);
   }
 
   deleteObstacle() {
@@ -43,20 +47,15 @@ class Game {
     });
   }
 
-  randomCreateObstacle() {
-    this.createObstacle();
-    setTimeout(this.randomCreateObstacle.bind(this), Math.random() * 7000);
-  }
-
-  moveObstacles() {
-    this.obstacles.forEach(obstacle => {
-      obstacle.posX -= obstacle.velocity;
+  moveElements(element) {
+    element.forEach(obstacle => {
+      obstacle.move();
     });
   }
 
-  updateEachObstacle() {
-    this.obstacles.forEach(obstacle => {
-      obstacle.update();
+  updateEachElement(element) {
+    element.forEach(obstacle => {
+      obstacle.paint();
     });
   }
 
@@ -97,19 +96,19 @@ class Game {
     }
   }
 
-  drawDino(){
-    a
+  drawDino() {
+    a;
   }
 
   // ------------------------COLISIONS--------------------------------
- 
+
   collisionControl() {
     this.obstacles.forEach(obstacle => {
-      
-      if (//this.coll1(obstacle) && this.coll2(obstacle)
-      this.dino.posY + this.dino.height >= obstacle.posY &&
-      this.dino.posX + this.dino.width > obstacle.posX &&
-      this.dino.posX <= obstacle.posX + obstacle.height
+      if (
+        //this.coll1(obstacle) && this.coll2(obstacle)
+        this.dino.posY + this.dino.height >= obstacle.posY &&
+        this.dino.posX + this.dino.width > obstacle.posX &&
+        this.dino.posX <= obstacle.posX + obstacle.height
       ) {
         setStage("game-over", "start");
         this.gameOver = true;
@@ -118,32 +117,30 @@ class Game {
     });
   }
 
-  forceGameOver() {
-    console.log("gameover");
-    setStage("game-over", "start");
-  }
-
   update() {
     if (!this.gameOver) {
       this.clear();
       this.dinoMove();
       this.ground.update();
       this.dino.update();
+
+      
+      if (this.generatingObstacle === false) {
+        this.randomCreateObstacle();
+      }
+      
+
       if (this.obstacles.length > 0) {
         //If there are obstacles
-        if (!this.obstaclesIntervalExists) {
-          setInterval(this.moveObstacles.bind(this), 100);
-          this.obstaclesIntervalExists = true;
-        }
-        this.updateEachObstacle();
+        this.moveElements(this.obstacles);
+        this.updateEachElement(this.obstacles);
         this.collisionControl();
         //this.deleteObstacle();
       }
-      if (!this.interval) {
-        setInterval(this.update.bind(this), 100);
-        this.interval = true;
+
+      if (this.interval !== undefined) {
+        this.interval = window.requestAnimationFrame(this.update.bind(this));
       }
-      
     }
   }
 }
