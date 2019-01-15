@@ -4,13 +4,17 @@ class Game {
     this.canvas.width = 500;
     this.canvas.height = 500;
     this.context = this.canvas.getContext("2d");
-    this.dino = new Dino(50, 20, "red", 50, 430, this.context); //width, height, color, x, y, ctx
-    this.ground = new Ground(20, 500, "black", 0, 480, this.context);
+    this.context.fillStyle = "blue";
+    this.context.fillRect(this.posX, this.posY, this.height, this.width);
+    this.dino = new Dino(20, 50, "img/dino.png", 50, 440, this.context); //width, height, color, x, y, ctx
+    this.ground = new Ground(20, 500, "green", 0, 480, this.context);
+    this.obstacle = new Obstacle(20, 20, "grey", 500, 460, this.context); //width, height, color, x, y, ctx
     this.obstacles = [];
+    this.keys = [];
     this.obstaclesMoving = false;
-    this.obstaclesExist = false;
-    this.keydown = false;
+    this.obstaclesIntervalExists = false;
     this.gameOver = false;
+    this.interval = false;
   }
 
   start() {
@@ -18,18 +22,16 @@ class Game {
     this.canvas.setAttribute("id", "canvas");
     document.body.insertBefore(this.canvas, gameOver);
     this.update();
+    
   }
 
   clear() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-
   // ------------------------OBSTACLES--------------------------------
   createObstacle() {
-    console.log("creteObstacle");
-    let obstacle = new Obstacle(20, 20, "grey", 500, 460, this.context);
-    this.obstacles.push(obstacle);
+    this.obstacles.push(this.obstacle);
     this.obstaclesMoving = true;
   }
 
@@ -41,77 +43,107 @@ class Game {
     });
   }
 
-  randomPaintObstacle() {
+  randomCreateObstacle() {
     this.createObstacle();
-    setTimeout(this.randomPaintObstacle.bind(this), Math.random() * 7000);
+    setTimeout(this.randomCreateObstacle.bind(this), Math.random() * 7000);
   }
 
   moveObstacles() {
     this.obstacles.forEach(obstacle => {
-      obstacle.posX -= 10;
+      obstacle.posX -= obstacle.velocity;
     });
   }
 
- // ------------------------DINO CONTROLS--------------------------------
-  dinoMove() {
-    document.onkeydown = e => {
-      if (e.keyCode === 38) {
-        this.dino.jump();
-        this.dino.autoLand();
-      } else if (e.keyCode === 40) {
-        this.dino.land();
-      } else if (e.keyCode === 39) {
-        this.dino.moveRight();
-      } else if (e.keyCode === 37) {
-        this.dino.moveLeft();
-      }
-    };
+  updateEachObstacle() {
+    this.obstacles.forEach(obstacle => {
+      obstacle.update();
+    });
   }
 
+  // ------------------------DINO CONTROLS--------------------------------
+  dinoMove() {
+    window.addEventListener(
+      "keydown",
+      function(e) {
+        this.keys[e.keyCode] = true;
+      }.bind(this),
+      false
+    );
+    window.addEventListener(
+      "keyup",
+      function(e) {
+        this.keys[e.keyCode] = false;
+      }.bind(this),
+      false
+    );
 
- // ------------------------COLISIONS--------------------------------
-  
-  collision() {
-    let dino = this.dino;
-    let object = this.obstacles[0];
-    let colision = false;
-    if (dino.posX > object.posX + object.width) {
-      colision = true;
+    if (this.keys[37]) {
+      this.dino.moveLeft();
     }
 
-    if (colision === true) {
-      console.log("gameover");
-      setStage("game-over", "start");
-      this.gameOver = true;
+    if (this.keys[39]) {
+      this.dino.moveRight();
     }
+
+    if (this.keys[38]) {
+      if (this.dino.jumping === false) {
+        this.dino.jump();
+      }
+      this.dino.autoLand();
+    }
+
+    if (this.keys[40]) {
+      this.dino.land();
+    }
+  }
+
+  drawDino(){
+    a
+  }
+
+  // ------------------------COLISIONS--------------------------------
+ 
+  collisionControl() {
+    this.obstacles.forEach(obstacle => {
+      
+      if (//this.coll1(obstacle) && this.coll2(obstacle)
+      this.dino.posY + this.dino.height >= obstacle.posY &&
+      this.dino.posX + this.dino.width > obstacle.posX &&
+      this.dino.posX <= obstacle.posX + obstacle.height
+      ) {
+        setStage("game-over", "start");
+        this.gameOver = true;
+      } else {
+      }
+    });
+  }
+
+  forceGameOver() {
+    console.log("gameover");
+    setStage("game-over", "start");
   }
 
   update() {
     if (!this.gameOver) {
-      this.interval = window.requestAnimationFrame(this.update.bind(this));
       this.clear();
       this.dinoMove();
       this.ground.update();
-
-      if (this.obstacles.length > 0) {
-        //Si hay obstaculos
-        this.obstacles.forEach(obstacle => {
-          obstacle.update();
-        });
-
-        if (!this.obstaclesExist) {
-          setInterval(this.moveObstacles.bind(this), 100);
-          this.obstaclesExist = true;
-        }
-
-        this.collision();
-      } else {
-        console.log("no obstacle");
-      }
-      //this.deleteObstacle();
       this.dino.update();
+      if (this.obstacles.length > 0) {
+        //If there are obstacles
+        if (!this.obstaclesIntervalExists) {
+          setInterval(this.moveObstacles.bind(this), 100);
+          this.obstaclesIntervalExists = true;
+        }
+        this.updateEachObstacle();
+        this.collisionControl();
+        //this.deleteObstacle();
+      }
+      if (!this.interval) {
+        setInterval(this.update.bind(this), 100);
+        this.interval = true;
+      }
+      
     }
   }
 }
-
-window.addEventListener("keydown", this.keydown);

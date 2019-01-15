@@ -12,7 +12,6 @@ function setStage(show, hidde, isStart) {
 start.onclick = function() {
   setStage("game-over", "start", true);
   startGame()
-  
 };
 
 gameOver.onclick = function() {
@@ -24,7 +23,7 @@ gameOver.onclick = function() {
 const game = new Game();
 function startGame() {
   game.start();
-  game.randomPaintObstacle();
+  game.randomCreateObstacle();
   
   
 }

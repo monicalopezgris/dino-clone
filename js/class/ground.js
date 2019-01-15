@@ -8,12 +8,7 @@ class Ground{
         this.ctx = ctx;
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.posX, this.posY, this.height, this.width);
-    }
-
-    test(){
-        console.log('test ground')
-    }
-    
+    }    
     update() {
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.posX, this.posY, this.height, this.width);

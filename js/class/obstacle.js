@@ -5,7 +5,9 @@ class Obstacle {
     this.posX = x;
     this.posY = y;
     this.ctx = ctx;
-    this.ctx.fillStyle = color;
+    this.color= color;
+    this.velocity = 10;
+    this.ctx.fillStyle = this.color;
     this.ctx.fillRect(this.posX, this.posY, this.height, this.width);
   }
 
