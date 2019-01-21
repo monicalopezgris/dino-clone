@@ -2,60 +2,47 @@ class Dino {
   constructor(width, height, img, x, y, ctx) {
     this.width = width;
     this.height = height;
-    this.posX = x;
-    this.posY = y;
+    this.x = x;
+    this.y = y;
+    this.jumpStrenght = -10;
+    this.vx = 3;
+    this.vy = this.jumpStrenght;
+    this.gravity = 0.3;
     this.image = new Image();
     this.image.src = img;
     this.ctx = ctx;
-    //this.ctx.fillStyle = color;
-    //this.ctx.fillRect(this.posX, this.posY, this.height, this.width);
-    this.jumping=false;
-    this.jumpTop = 370;
-    this.velocity = 1;
-    
+    this.inGround = true;
+    this.jumpLimit = 370;
   }
 
   paint() {
-    this.ctx.drawImage(this.image, 
-      this.posX, 
-      this.posY,
-      this.width, this.height);
-
-
-    //this.ctx.fillStyle = this.color;
-    //this.ctx.fillRect(this.posX, this.posY, this.height, this.width);
+    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 
   jump() {
-    this.autoLand()
-    this.jumping = true;
-
-    while (this.posY>this.jumpTop) {
-      this.posY -= this.velocity;
-    }
-
-  }
-
-  autoLand() {
-    setTimeout(
-      this.land.bind(this),
-      100
-    );
-  }
-
-  land() {
+    this.inGround = false;
     
-    while (this.posY<430) {
-      this.posY += this.velocity;
+    if (!this.inGround) {
+      this.y += this.vy;
+      this.vy += this.gravity;
     }
-    this.jumping = false;
   }
-
+  
+  landControl(ground, keys) {
+    if (this.y + this.height > ground.y) {
+      this.y = ground.y - this.height;
+      this.vy = this.jumpStrenght;
+      this.inGround=true;
+      keys[38]=false;
+      keys[37]=false;
+      keys[39]=false;
+    }
+  }
   moveRight() {
-    this.posX += this.velocity;
+    this.x += this.vx;
   }
 
   moveLeft() {
-    this.posX -= this.velocity;
+    this.x -= this.vx;
   }
 }
