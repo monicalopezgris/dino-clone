@@ -166,7 +166,7 @@ h1 {
 * STAGE START
 ***************************************************/
 #start {
-  background-color: rgb(145, 255, 0);
+  background-color: white
   height: 100vh;
   width: 100vw;
   padding-top: 100px;
