@@ -30,6 +30,7 @@ class Game {
 
   clear() {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
   }
 
   randomNumber(min, max) {
@@ -96,10 +97,12 @@ class Game {
 
     if (this.keys[37]) {
       this.dino.moveLeft();
+     
     }
 
     if (this.keys[39]) {
       this.dino.moveRight();
+     
     }
   }
 
@@ -152,7 +155,6 @@ class Game {
         this.collisionControl();
         this.deleteObstacle();
       }
-
       //console.log(this.keys)
       if (this.interval !== undefined) {
         this.interval = window.requestAnimationFrame(this.update.bind(this));

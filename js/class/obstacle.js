@@ -18,5 +18,4 @@ class Obstacle {
   move() {
     this.x -= this.vx;
   }
-
 }
