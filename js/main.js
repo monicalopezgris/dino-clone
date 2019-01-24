@@ -16,8 +16,7 @@ start.onclick = function() {
 };
 
 gameOver.onclick = function() {
-  setStage("start", "game-over");
-  startGame();
+  location.reload();
 };
 
 
