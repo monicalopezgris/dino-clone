@@ -151,17 +151,7 @@ class Game {
      
     }
 
-    /*if (this.keys[38]) {
-      this.dino.jump(this.ground)
-      console.log(this.dino.inGround)
-      if (this.dino.inGround){
-        this.keys[38] = false;
-      }
-    }*/
-
-    /*if (this.keys[40]) {
-      this.dino.land()
-    }*/
+  
   }
 
   onKeyUpDinoJump() {
