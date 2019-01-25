@@ -42,7 +42,6 @@ class Game {
   createObstacle() {
     let object = this.randomNumber(0, this.obstacleTypes.length-1);
     this.obstacles.push(this.obstacleTypes[object]);
-    console.log(this.obstacles)
     this.generatingObstacle = false;
   }
 
