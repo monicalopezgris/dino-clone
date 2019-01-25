@@ -41,7 +41,19 @@ class Game {
   // ------------------------OBSTACLES--------------------------------
   createObstacle() {
     let object = this.randomNumber(0, this.obstacleTypes.length-1);
-    this.obstacles.push(this.obstacleTypes[object]);
+    //this.obstacles.push(this.obstacleTypes[object]);
+
+    switch (object) {
+      case 0:
+        this.obstacles.push(new Obstacle(100, 50, "img/spike-double.png", this.windowWidth - 100, this.windowHeight - this.ground.width - 50, this.context))
+        break;
+      case 1:
+        this.obstacles.push(new Obstacle(50, 50, "img/spike.png", this.windowWidth - 50, this.windowHeight - this.ground.width - 50, this.context))
+        break;
+
+      default:
+        break;
+    }
     this.generatingObstacle = false;
   }
 
