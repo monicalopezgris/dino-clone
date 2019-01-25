@@ -28,14 +28,20 @@ class Dino {
     }
   }
   
-  landControl(ground) {
+
+  landControl(ground, keys) {
+
     if (this.y + this.height > ground.y) {
       this.y = ground.y - this.height;
       this.vy = this.jumpStrenght;
       this.inGround=true;
+
+      keys[38]=false;
+      keys[37]=false;
+      keys[39]=false;
+
     }
   }
-
   moveRight() {
     this.x += this.vx;
   }

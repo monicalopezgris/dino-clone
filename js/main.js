@@ -1,21 +1,23 @@
 // STAGES CHANGER
 let start = document.getElementById("start-button");
-let gameOver = document.getElementById("return-button");
+let gameOver = document.getElementById("restart");
 
 function setStage(show, hidde, isStart) {
-    if (!isStart) {
-      document.getElementById(show).classList.remove("hidden");
-    }
-    document.getElementById(hidde).classList.add("hidden");
+  if (!isStart) {
+    document.getElementById(show).classList.remove("hidden");
   }
-  
+  document.getElementById(hidde).classList.add("hidden");
+}
+
+
 start.onclick = function() {
   setStage("game-over", "start", true);
-  startGame()
+  startGame();
 };
 
 gameOver.onclick = function() {
   setStage("start", "game-over");
+  startGame();
 };
 
 
@@ -23,10 +25,4 @@ gameOver.onclick = function() {
 const game = new Game();
 function startGame() {
   game.start();
-  
 }
-
-
-
-
-

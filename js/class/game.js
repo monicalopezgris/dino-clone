@@ -8,30 +8,12 @@ class Game {
     this.context = this.canvas.getContext("2d");
     this.context.fillStyle = "blue";
     this.context.fillRect(this.posX, this.posY, this.height, this.width);
-    this.ground = new Ground(
-      80,
-      this.windowWidth,
-      "green",
-      0,
-      this.windowHeight - 80,
-      this.context
-    );
-    this.dino = new Dino(
-      20,
-      50,
-      "img/dino.png",
-      50,
-      this.windowHeight - this.ground.width - 50,
-      this.context
-    ); //width, height, color, x, y, ctx
-    this.obstacle = new Obstacle(
-      20,
-      20,
-      "grey",
-      this.windowWidth - 20,
-      this.windowHeight - this.ground.width,
-      this.context
-    ); //width, height, color, x, y, ctx
+    this.ground = new Ground(80,this.windowWidth,"green",0,this.windowHeight - 80,this.context);
+    this.dino = new Dino(20,50,"img/dino.png",50,this.windowHeight - this.ground.width - 50,this.context);
+    this.obstacleTypes = [
+      new Obstacle(100,50,"img/spike-double.png",this.windowWidth - 100,this.windowHeight - this.ground.width - 50,this.context),
+      new Obstacle(50,50,"img/spike.png",this.windowWidth - 50,this.windowHeight - this.ground.width - 50,this.context)
+    ];
     this.obstacles = [];
     this.keys = [];
     this.generatingObstacle = false;
@@ -57,43 +39,15 @@ class Game {
 
   // ------------------------OBSTACLES--------------------------------
   createObstacle() {
-    let object = this.randomNumber(0, 1);
-
-    switch (object) {
-      case 0:
-        this.obstacles.push(
-          new Obstacle(
-            20,
-            20,
-            "grey",
-            this.windowWidth - 20,
-            this.windowHeight - this.ground.width - 20,
-            this.context
-          )
-        );
-        break;
-      case 1:
-        this.obstacles.push(
-          new Obstacle(
-            20,
-            20,
-            "red",
-            this.windowWidth - 20,
-            this.windowHeight - this.ground.width - 30,
-            this.context
-          )
-        );
-        break;
-      default:
-        break;
-    }
-
+    let object = this.randomNumber(0, this.obstacleTypes.length-1);
+    this.obstacles.push(this.obstacleTypes[object]);
     this.generatingObstacle = false;
   }
 
   randomCreateObstacle() {
     this.generatingObstacle = true;
     setTimeout(this.createObstacle.bind(this), Math.random() * 5000);
+    
   }
 
   deleteObstacle() {
@@ -157,14 +111,12 @@ class Game {
   onKeyUpDinoJump() {
     document.onkeyup = function(e) {
       if (e.keyCode === 38) {
-        this.dino.jump(this.ground)
-        // this.dino.inGround = false;
-      
+        this.dino.jump(this.ground);
       }
     }.bind(this);
   }
 
-
+  
   // ------------------------COLISIONS--------------------------------
 
   collisionControl() {
@@ -187,20 +139,17 @@ class Game {
       this.ground.paint();
       this.onKeyUpDinoJump();
       this.dinoMove();
-      
-      if (this.dino.inGround ===false) {
+
+      if (this.dino.inGround === false) {
         this.dino.jump();
       }
 
-      console.log(this.keys)
-      
       this.dino.paint();
-      this.dino.landControl(this.ground);
-      
+      this.dino.landControl(this.ground, this.keys);
       if (this.generatingObstacle === false) {
         this.randomCreateObstacle();
       }
-      
+
       if (this.obstacles.length > 0) {
         //If there are obstacles
         this.moveElements(this.obstacles);
@@ -208,7 +157,6 @@ class Game {
         this.collisionControl();
         this.deleteObstacle();
       }
-      
       //console.log(this.keys)
       if (this.interval !== undefined) {
         this.interval = window.requestAnimationFrame(this.update.bind(this));

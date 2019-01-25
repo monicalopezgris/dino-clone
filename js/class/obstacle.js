@@ -1,19 +1,18 @@
 class Obstacle {
-  constructor(width, height, color, x, y, ctx) {
+  constructor(width, height, img, x, y, ctx) {
     this.width = width;
     this.height = height;
     this.x = x;
     this.y = y;
     this.vx = 1;
     this.ctx = ctx;
-    this.color = color;
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(this.x, this.y, this.height, this.width);
+    this.image = new Image();
+    this.image.src = img;
+    
   }
 
   paint() {
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(this.x, this.y, this.height, this.width);
+    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 
   move() {
