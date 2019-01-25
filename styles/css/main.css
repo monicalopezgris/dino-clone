@@ -179,17 +179,10 @@ h1 {
   justify-content: center;
 }
 #dino {
-  background-color: brown;
-  width: 20px;
-  height: 40px;
   margin-right: 35px;
 }
 
-#rock {
-  background-color: grey;
-  width: 20px;
-  height: 20px;
-}
+
 
 #ground {
   height: 30px;
@@ -219,4 +212,18 @@ button:hover {
   top: 0px;
   left: 0px;
 }
+#game-over > h1{
+  color:white;
+  margin: 30vh 20vw;
+}
 
+#restart{
+  margin: 0 20vw;
+}
+
+/*
+* CANVAS
+***************************************************/
+canvas{
+  background-color: lightblue;
+}

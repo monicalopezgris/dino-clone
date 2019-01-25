@@ -26,6 +26,7 @@ class Game {
     document.body.insertBefore(this.canvas, gameOver);
     this.interval = window.requestAnimationFrame(this.update.bind(this));
     this.update();
+    
   }
 
   clear() {
@@ -46,8 +47,7 @@ class Game {
 
   randomCreateObstacle() {
     this.generatingObstacle = true;
-    setTimeout(this.createObstacle.bind(this), Math.random() * 5000);
-    
+    this.counter=setTimeout(this.createObstacle.bind(this), Math.random() * 5000);
   }
 
   deleteObstacle() {
@@ -104,8 +104,6 @@ class Game {
       this.dino.moveRight();
      
     }
-
-  
   }
 
   onKeyUpDinoJump() {
@@ -133,6 +131,18 @@ class Game {
     });
   }
 
+  // -----------------PUNTUATION------------------------------------
+
+  controlPuntuation(){
+    this.obstacles.forEach(obstacle => {
+      if (obstacle.x < -20) {
+        this.counter += 1;
+      }
+    });
+  }
+
+
+  // UPDATE
   update() {
     if (!this.gameOver) {
       this.clear();
@@ -157,10 +167,12 @@ class Game {
         this.collisionControl();
         this.deleteObstacle();
       }
-      //console.log(this.keys)
+
+      this.controlPuntuation()
+      
       if (this.interval !== undefined) {
         this.interval = window.requestAnimationFrame(this.update.bind(this));
-      }
+      } 
     }
   }
 }

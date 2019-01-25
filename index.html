@@ -5,18 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Dino Run Light</title>
-    <link rel="stylesheet" href="../dino-clone/styles/css/main.css" />
-  </head>
-  <body>
-    <div class="stage" id="start">
-      <h1>Dino Run</h1>
-      <p>Semi-block edition</p>
-      <div>
-        <div id="dino"></div>
-        <div id="rock"></div>
-      </div>
-      <div><div id="ground"></div></div>
-      <div><button id="start-button">START</button></div>
+    <link rel="stylesheet" href="../dino-clone/styles/css/main.css">
+</head>
+<body>
+    <div class='stage' id='start'>
+        <h1>Dino Run</h1>
+        <p>Save yourself</p>
+        <div>
+            <img src="/img/dino.png" alt="dino" height="42" width="32">
+        </div>
+        <div>
+            <div id="ground"></div>
+        </div>
+        <div>
+                <button id='start-button'>START</button>
+        </div>
+        
+
+    </div>
+    <div class='stage hidden' id='game-over'>
+        <h1 id='restart'>RESTART</h1>
+        
     </div>
     <div class="stage hidden" id="game-over"><h1 id="restart">RESTART</h1></div>
 
